@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL Reading Practice</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header>
+
+<div class="logo">
+TOEFL Reading Practice
+</div>
+
+<div id="timer">
+35:00
+</div>
+
+</header>
+
+<!-- Progress -->
+
+<div id="progressContainer">
+
+<div id="progressBar"></div>
+
+</div>
+
+<!-- Main -->
+
+<div id="main">
+
+<!-- Passage -->
+
+<section id="passagePanel">
+
+<h2 id="passageTitle"></h2>
+
+<div id="passageText"></div>
+
+</section>
+
+<!-- Question -->
+
+<section id="questionPanel">
+
+<div id="questionNumber"></div>
+
+<h3 id="questionText"></h3>
+
+<div id="choices"></div>
+
+<div id="buttons">
+
+<button id="prevBtn">
+Previous
+</button>
+
+<button id="flagBtn">
+🚩 Flag
+</button>
+
+<button id="nextBtn">
+Next
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- Navigator -->
+
+<footer>
+
+<div id="navigator"></div>
+
+</footer>
+
+<!-- Review Screen -->
+
+<div id="reviewScreen" class="hidden">
+
+<h2>
+Review Questions
+</h2>
+
+<div id="reviewList"></div>
+
+<button id="submitExam">
+Submit Reading
+</button>
+
+</div>
+
+<!-- Results -->
+
+<div id="results" class="hidden">
+
+<h1>
+Reading Results
+</h1>
+
+<h2 id="score"></h2>
+
+<div id="answerReview"></div>
+
+<button onclick="location.reload()">
+Restart
+</button>
+
+</div>
+
+<script src="questions.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
