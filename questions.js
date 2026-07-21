@@ -1,36 +1,70 @@
-const exam = {
-    title: "Sample Reading",
+const listeningModule1 = [
 
-    passage: `
-Coral reefs are among the most diverse ecosystems on Earth.
+{
+    question: "Choose the Best Response",
+    audio: "q1.ogg"
+},
 
-Scientists continue to study coral reefs because they provide
-habitats for thousands of marine species.
-`,
+{
+    question: "...",
+    audio: "q2.ogg"
+},
 
-    questions: [
-        {
-            question: "According to the passage, why are coral reefs important?",
-            choices: [
-                "They provide habitats for many species.",
-                "They increase rainfall.",
-                "They create volcanoes.",
-                "They reduce sunlight."
-            ],
-            answer: 0,
-            explanation: "The passage states reefs provide habitats for many marine species."
-        },
+...
 
-        {
-            question: "Scientists continue to study coral reefs because...",
-            choices: [
-                "they are dangerous.",
-                "they are ecologically important.",
-                "they cause earthquakes.",
-                "they create islands."
-            ],
-            answer: 1,
-            explanation: "The passage explains their ecological importance."
-        }
-    ]
-};
+{
+    question: "...",     // Question 8
+    audio: "q8.ogg"
+},
+
+{
+    question: "...",     // Question 9
+    audio: "conv1.ogg"
+},
+
+{
+    question: "...",     // Question 10
+    audio: "conv1.ogg"
+},
+
+{
+    question: "...",     // Question 11
+    audio: "lecture1.ogg"
+},
+
+{
+    question: "...",     // Question 12
+    audio: "lecture1.ogg"
+},
+
+{
+    question: "...",     // Question 13
+    audio: "lecture2.ogg"
+},
+
+{
+    question: "...",     // Question 14
+    audio: "lecture2.ogg"
+},
+
+{
+    question: "...",     // Question 15
+    audio: "conversation2.ogg"
+},
+
+{
+    question: "...",     // Question 16
+    audio: "conversation2.ogg"
+},
+
+{
+    question: "...",     // Question 17
+    audio: "conversation2.ogg"
+},
+
+{
+    question: "...",     // Question 18
+    audio: "conversation2.ogg"
+}
+
+];

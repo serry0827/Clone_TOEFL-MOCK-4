@@ -369,3 +369,8 @@ border-radius:8px;
     color:white;
 
 }
+
+.warning {
+    color: #d32f2f !important;
+    font-weight: bold;
+}

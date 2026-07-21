@@ -10,6 +10,8 @@ let flagged = new Array(exam.questions.length).fill(false);
 
 let seconds = 35 * 60;
 
+let reviewMode = false;
+
 // --------------------
 // HTML ELEMENTS
 // --------------------
@@ -28,6 +30,10 @@ const navigatorDiv = document.getElementById("navigator");
 
 const timer = document.getElementById("timer");
 
+const audioPlayer = new Audio();
+
+let currentAudio = "";
+
 // --------------------
 // LOAD PASSAGE
 // --------------------
@@ -37,33 +43,61 @@ passageTitle.textContent = exam.title;
 passageText.textContent = exam.passage;
 
 // --------------------
-// TIMER
+// AUDIO
 // --------------------
+function playQuestionAudio(){
 
-function updateTimer(){
+    const audio = exam.questions[currentQuestion].audio;
 
-    let min = Math.floor(seconds / 60);
+    if(audio !== currentAudio){
 
-    let sec = seconds % 60;
+        currentAudio = audio;
 
-    timer.textContent =
-        String(min).padStart(2,"0") +
-        ":" +
-        String(sec).padStart(2,"0");
+        audioPlayer.src = "audio/" + audio;
 
-    if(seconds>0){
-
-        seconds--;
-
-    }else{
-
-        alert("Time is up!");
+        audioPlayer.play();
 
     }
 
 }
 
-setInterval(updateTimer,1000);
+// --------------------
+// TIMER
+// --------------------
+
+function updateTimer() {
+
+    let min = Math.floor(seconds / 60);
+    let sec = seconds % 60;
+
+    timer.textContent =
+        String(min).padStart(2, "0") +
+        ":" +
+        String(sec).padStart(2, "0");
+
+    if (seconds <= 300) {   // 300 seconds = 5 minutes
+        timer.classList.add("warning");
+    }
+
+    if (seconds > 0) {
+
+        seconds--;
+
+    } else {
+
+        clearInterval(timerInterval);
+
+        document.querySelector(".logo").innerHTML = "Time Expired";
+
+        setTimeout(() => {
+            document.getElementById("submitExam").click();
+        }, 1000);
+
+            }
+
+        }
+
+const timerInterval = setInterval(updateTimer, 1000);
 
 // --------------------
 // RENDER QUESTION
@@ -88,6 +122,22 @@ function renderQuestion(){
         const div=document.createElement("div");
 
         div.className="choice";
+        if (reviewMode) {
+
+            const correct = q.answer;
+
+            if (index === correct) {
+                div.classList.add("correct");
+            }
+
+            if (
+                answers[currentQuestion] === index &&
+                index !== correct
+            ) {
+                div.classList.add("incorrect");
+            }
+
+        }
 
         if(answers[currentQuestion]===index){
 
@@ -116,6 +166,8 @@ function renderQuestion(){
     });
 
     updateProgress();
+
+    playQuestionAudio();
 
 }
 
@@ -209,6 +261,12 @@ document.getElementById("nextBtn").onclick = () => {
         renderNavigator();
 
     } else {
+
+        if(reviewMode){
+
+            return;
+
+        }
 
         openReview();
 
@@ -334,31 +392,13 @@ document.getElementById("submitExam").onclick = ()=>{
 
     document.querySelector(".logo").innerHTML =
     `Reading Review — ${score}/${exam.questions.length}`;
+    document.getElementById("timer").style.display = "none";
+    document.getElementById("flagBtn").style.display = "none";
+    document.getElementById("nextBtn").textContent = "Next Question";
+    document.getElementById("flagBtn").disabled = true;
 
-    
     renderQuestion();
 
     renderNavigator();
 
 };
-
-if(reviewMode){
-
-    const correct = q.answer;
-
-    if(index === correct){
-
-        div.classList.add("correct");
-
-    }
-
-    if(
-        answers[currentQuestion] === index &&
-        index !== correct
-    ){
-
-        div.classList.add("incorrect");
-
-    }
-
-}
