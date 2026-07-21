@@ -97,15 +97,19 @@ function renderQuestion(){
 
         div.innerHTML=choice;
 
-        div.onclick=()=>{
+        if (!reviewMode) {
 
-            answers[currentQuestion]=index;
+        div.onclick = () => {
+
+            answers[currentQuestion] = index;
 
             renderQuestion();
 
             renderNavigator();
 
-        };
+            };
+
+        }
 
         choicesDiv.appendChild(div);
 
@@ -139,6 +143,20 @@ function renderNavigator(){
         const btn=document.createElement("button");
 
         btn.className="navBtn";
+
+        if(reviewMode){
+
+            if(answers[index]===exam.questions[index].answer){
+
+                btn.classList.add("correctNav");
+
+            }else{
+
+                btn.classList.add("incorrectNav");
+
+            }
+
+        }
 
         btn.innerHTML=index+1;
 
@@ -289,52 +307,58 @@ function openReview() {
 // SUBMIT
 // --------------------
 
-document.getElementById("submitExam").onclick = () => {
+document.getElementById("submitExam").onclick = ()=>{
 
+    reviewMode = true;
+
+    document.getElementById("reviewScreen")
+        .classList.add("hidden");
+
+    document.getElementById("main")
+        .style.display="flex";
+
+    document.querySelector("footer")
+        .style.display="flex";
+    
     let score = 0;
 
-    let html = "";
+    answers.forEach((a,i)=>{
 
-    exam.questions.forEach((q, i) => {
+        if(a===exam.questions[i].answer){
 
-        const correct = answers[i] === q.answer;
-
-        if (correct)
             score++;
 
-        html += `
-        <div class="${correct ? "correct" : "wrong"}">
-
-        <h3>Question ${i + 1}</h3>
-
-        <p><strong>Your answer:</strong>
-        ${
-            answers[i] == null
-            ? "No Answer"
-            : q.choices[answers[i]]
         }
-        </p>
-
-        <p><strong>Correct answer:</strong>
-        ${q.choices[q.answer]}
-        </p>
-
-        <p><strong>Explanation:</strong>
-        ${q.explanation}
-        </p>
-
-        </div>
-        `;
 
     });
 
-    reviewScreen.classList.add("hidden");
+    document.querySelector(".logo").innerHTML =
+    `Reading Review — ${score}/${exam.questions.length}`;
 
-    document.getElementById("results").classList.remove("hidden");
+    
+    renderQuestion();
 
-    document.getElementById("score").innerHTML =
-        `${score} / ${exam.questions.length}`;
-
-    document.getElementById("answerReview").innerHTML = html;
+    renderNavigator();
 
 };
+
+if(reviewMode){
+
+    const correct = q.answer;
+
+    if(index === correct){
+
+        div.classList.add("correct");
+
+    }
+
+    if(
+        answers[currentQuestion] === index &&
+        index !== correct
+    ){
+
+        div.classList.add("incorrect");
+
+    }
+
+}
