@@ -13,7 +13,7 @@ const exam = {
                 "Every book.",
                 "No, dinner is at eight p.m."
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -26,7 +26,7 @@ const exam = {
                 "Yes, on the left.",
                 "The kitchen is large."
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -39,7 +39,7 @@ const exam = {
                 "Sorry—I forgot.",
                 "Yes, I'll leave tomorrow evening."
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -52,7 +52,7 @@ const exam = {
                 "The hallway lights are out again.",
                 "Especially for this time of year."
             ],
-            answer: null
+            answer: 3
         },
 
         {
@@ -65,7 +65,7 @@ const exam = {
                 "I'm on track to finish on time.",
                 "Not such a good idea."
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -78,7 +78,7 @@ const exam = {
                 "I'll do that next time.",
                 "We went out for lunch afterward."
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -91,7 +91,7 @@ const exam = {
                 "I don't know how many.",
                 "Set the documents on the table."
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -104,7 +104,7 @@ const exam = {
                 "Didn't they offer to write a review?",
                 "A month from now."
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -118,7 +118,7 @@ const exam = {
                 "It is unable to move fast.",
                 "It is unsafe to drive."
             ],
-            answer: null
+            answer: 1
         },
 
 
@@ -133,7 +133,7 @@ const exam = {
                 "He needs advice about a mechanic to use.",
                 "He hopes an issue is minor."
             ],
-            answer: null
+            answer: 3
         },
 
         {
@@ -147,7 +147,7 @@ const exam = {
                 "A cabin",
                 "Skiing equipment"
             ],
-            answer: null
+            answer: 3
         },
 
         {
@@ -161,7 +161,7 @@ const exam = {
                 "Offer the man some skiing advice",
                 "Make a phone call"
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -175,7 +175,7 @@ const exam = {
                 "Updates to course material",
                 "An upcoming exam"
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -189,7 +189,7 @@ const exam = {
                 "Meet with her if they have questions",
                 "Email her a list of their concerns"
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -203,7 +203,7 @@ const exam = {
                 "It describes the differences between two methods of teaching language.",
                 "It discusses the two main types of language acquisition."
             ],
-            answer: null
+            answer: 3
         },
 
         {
@@ -217,7 +217,7 @@ const exam = {
                 "To describe how some languages are more complex than others",
                 "To provide background on the critical period hypothesis"
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -231,7 +231,7 @@ const exam = {
                 "Children with increased exposure to a second language are more motivated to learn it.",
                 "Formal education does not motivate people to acquire a second language."
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -245,7 +245,7 @@ const exam = {
                 "A longer period of language exposure supports better learning.",
                 "Second language acquisition occurs most easily in early adulthood."
             ],
-            answer: null
+            answer: 1
         },
 
 
@@ -263,7 +263,7 @@ const exam = {
                 "No problem.",
                 "Closed on Mondays."
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -276,7 +276,7 @@ const exam = {
                 "The bookstore opens at noon on Sundays.",
                 "About 200 faculty members."
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -289,7 +289,7 @@ const exam = {
                 "I'll have time tomorrow morning.",
                 "The professor called me back."
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -302,7 +302,7 @@ const exam = {
                 "Usually at eleven thirty a.m.",
                 "Good meal selections."
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -315,7 +315,7 @@ const exam = {
                 "Emily would do a great job.",
                 "Different lab equipment."
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -328,7 +328,7 @@ const exam = {
                 "A soft touch is needed.",
                 "Thursday afternoons."
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -341,7 +341,7 @@ const exam = {
                 "It's closed.",
                 "She is available."
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -354,7 +354,7 @@ const exam = {
                 "I ordered a subscription yesterday.",
                 "For Thursday evening?"
             ],
-            answer: null
+            answer: 3
         },
 
         {
@@ -368,7 +368,7 @@ const exam = {
                 "The equipment",
                 "The prices for one-time use"
             ],
-            answer: null
+            answer: 3
         },
 
         {
@@ -382,7 +382,7 @@ const exam = {
                 "To give an extra reason for getting a long-term membership",
                 "To point out that there are many different ways to get in shape"
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -396,7 +396,7 @@ const exam = {
                 "To promote a new program on personal health",
                 "To point out that classes are often canceled because of bad weather"
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -410,7 +410,7 @@ const exam = {
                 "The portal can be difficult to navigate.",
                 "Important information has just been posted."
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -424,7 +424,7 @@ const exam = {
                 "How fossil fuel use leads to global warming",
                 "The importance of water conservation to a sustainable future"
             ],
-            answer: null
+            answer: 1
         },
 
         {
@@ -438,7 +438,7 @@ const exam = {
                 "Global temperature increase",
                 "Number of natural resources consumed"
             ],
-            answer: null
+            answer: 0
         },
 
         {
@@ -452,7 +452,7 @@ const exam = {
                 "It is a component of the ecological footprint.",
                 "It considers the number of vehicles in a given area."
             ],
-            answer: null
+            answer: 2
         },
 
         {
@@ -466,7 +466,7 @@ const exam = {
                 "Generation of waste",
                 "Carbon emissions"
             ],
-            answer: null
+            answer: 1
         }
 
     ]
