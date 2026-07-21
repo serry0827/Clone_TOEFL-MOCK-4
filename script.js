@@ -2,6 +2,8 @@
 // GLOBAL VARIABLES
 // --------------------
 
+let currentModule = 1;
+
 let currentQuestion = 0;
 
 let answers = new Array(exam.questions.length).fill(null);
@@ -12,15 +14,16 @@ let seconds = 35 * 60;
 
 let reviewMode = false;
 
+let questionTimer;
+
 // --------------------
 // HTML ELEMENTS
 // --------------------
 
-const passageTitle = document.getElementById("passageTitle");
-const passageText = document.getElementById("passageText");
 
 const questionNumber = document.getElementById("questionNumber");
 const questionText = document.getElementById("questionText");
+const instruction = document.getElementById("instruction");
 
 const choicesDiv = document.getElementById("choices");
 
@@ -30,74 +33,193 @@ const navigatorDiv = document.getElementById("navigator");
 
 const timer = document.getElementById("timer");
 
+const playAudioBtn = document.getElementById("playAudioBtn");
+
 const audioPlayer = new Audio();
 
-let currentAudio = "";
+const questionTimes = [
+
+    10,10,10,10,10,10,10,10,   // Q1-8
+
+    15,15,                      // Q9-10
+
+    15, 15,                      // Q11-12
+
+    20,20,20,20,20,20,           // Q13-18
+
+    10,10,10,10,10,10,10,10, //1-8
+
+    15,15, //9-10
+
+    15,15, //9-10
+
+    20,20,20,20           // Q13-16
+
+    ];
+
+let lastAudioFile = "";
 
 // --------------------
 // LOAD PASSAGE
 // --------------------
 
-passageTitle.textContent = exam.title;
-
-passageText.textContent = exam.passage;
 
 // --------------------
 // AUDIO
 // --------------------
-function playQuestionAudio(){
+function getAudioFile(module, question){
 
-    const audio = exam.questions[currentQuestion].audio;
+    // Questions 1-8
+    if(question <= 8){
+        return `${module}_${question}.ogg`;
+    }
 
-    if(audio !== currentAudio){
+    // Module 1
+    if(module == 1){
 
-        currentAudio = audio;
+        if(question <= 10)
+            return "1_9-10.ogg";
 
-        audioPlayer.src = "audio/" + audio;
+        if(question <= 12)
+            return "1_11-12.ogg";
+
+        if(question <= 14)
+            return "1_13-14.ogg";
+
+        return "1_15-18.ogg";
+
+    }
+
+    // Module 2
+    if(module == 2){
+
+        if(question <= 10)
+            return "2_9-10.ogg";
+
+        if(question <= 12)
+            return "2_11-12.ogg";
+
+        return "2_13-16.ogg";
+
+    }
+
+}
+
+function playAudio(){
+
+    const questionNumber = currentQuestion + 1;
+
+    const module = (currentQuestion < 18) ? 1 : 2;
+
+    const questionInModule =
+        (module === 1)
+            ? currentQuestion + 1
+            : currentQuestion - 17;
+
+    const file = getAudioFile(module, questionInModule);
+
+    if(file === lastAudioFile)
+        return;
+
+    lastAudioFile = file;
+
+   audioPlayer.src = "Audiofiles_Mock4/" + file;
+
+    document.getElementById("audioProgress").style.width = "0%";
+
+    if(reviewMode){
+
+        document.getElementById("audioStatus").textContent =
+            "🎧 Click Play to hear the audio.";
+
+    }else{
 
         audioPlayer.play();
 
+        document.getElementById("audioStatus").textContent =
+            "🎧 Now Playing...";
+
     }
+
+    audioPlayer.ontimeupdate = () => {
+
+        if(audioPlayer.duration){
+
+            const percent =
+                (audioPlayer.currentTime / audioPlayer.duration) * 100;
+
+            document.getElementById("audioProgress").style.width =
+                percent + "%";
+        }
+
+    };
+
+    audioPlayer.onended = () => {
+
+        document.getElementById("audioStatus").textContent =
+            "✓ Audio Finished";
+
+        document.getElementById("audioProgress").style.width = "100%";
+
+        startQuestionTimer();
+
+    };
 
 }
 
 // --------------------
 // TIMER
 // --------------------
-
 function updateTimer() {
 
     let min = Math.floor(seconds / 60);
+
     let sec = seconds % 60;
 
     timer.textContent =
-        String(min).padStart(2, "0") +
+        String(min).padStart(2,"0") +
         ":" +
-        String(sec).padStart(2, "0");
+        String(sec).padStart(2,"0");
 
-    if (seconds <= 300) {   // 300 seconds = 5 minutes
+    if(seconds <= 5){
         timer.classList.add("warning");
+    }else{
+        timer.classList.remove("warning");
     }
 
-    if (seconds > 0) {
+}
+
+function prepareQuestionTimer(){
+
+    clearInterval(questionTimer);
+
+    seconds = questionTimes[currentQuestion];
+
+    updateTimer();
+
+}
+
+function startQuestionTimer(){
+
+    clearInterval(questionTimer);
+
+    questionTimer = setInterval(()=>{
 
         seconds--;
 
-    } else {
+        updateTimer();
 
-        clearInterval(timerInterval);
+        if(seconds <= 0){
 
-        document.querySelector(".logo").innerHTML = "Time Expired";
+            clearInterval(questionTimer);
 
-        setTimeout(() => {
-            document.getElementById("submitExam").click();
-        }, 1000);
-
-            }
+            document.getElementById("nextBtn").click();
 
         }
 
-const timerInterval = setInterval(updateTimer, 1000);
+    },1000);
+
+}
 
 // --------------------
 // RENDER QUESTION
@@ -106,6 +228,7 @@ const timerInterval = setInterval(updateTimer, 1000);
 function renderQuestion(){
 
     const q = exam.questions[currentQuestion];
+    instruction.textContent = q.instruction;
 
     questionNumber.textContent =
         "Question " +
@@ -113,7 +236,7 @@ function renderQuestion(){
         " of " +
         exam.questions.length;
 
-    questionText.textContent = q.question;
+    questionText.textContent = q.questionText;
 
     choicesDiv.innerHTML="";
 
@@ -167,7 +290,19 @@ function renderQuestion(){
 
     updateProgress();
 
-    playQuestionAudio();
+    prepareQuestionTimer();
+
+    if(reviewMode){
+
+        playAudioBtn.style.display = "inline-block";
+
+    }else{
+
+        playAudioBtn.style.display = "none";
+
+    }
+
+    playAudio();
 
 }
 
@@ -232,6 +367,9 @@ function renderNavigator(){
 
         btn.onclick=()=>{
 
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+
             currentQuestion=index;
 
             renderQuestion();
@@ -251,6 +389,9 @@ function renderNavigator(){
 // --------------------
 
 document.getElementById("nextBtn").onclick = () => {
+
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
 
     if (currentQuestion < exam.questions.length - 1) {
 
@@ -276,6 +417,9 @@ document.getElementById("nextBtn").onclick = () => {
 
 document.getElementById("prevBtn").onclick=()=>{
 
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+
     if(currentQuestion>0){
 
         currentQuestion--;
@@ -300,10 +444,21 @@ document.getElementById("flagBtn").onclick=()=>{
 // START
 // --------------------
 
-renderQuestion();
+document.getElementById("startBtn").onclick = () => {
 
-renderNavigator();
+    document.getElementById("startScreen").style.display = "none";
 
+    document.getElementById("main").style.display = "flex";
+
+    document.querySelector("footer").style.display = "flex";
+
+    document.getElementById("progressContainer").style.display = "block";
+
+    renderQuestion();
+
+    renderNavigator();
+
+};
 // --------------------
 // REVIEW PAGE
 // --------------------
@@ -397,8 +552,25 @@ document.getElementById("submitExam").onclick = ()=>{
     document.getElementById("nextBtn").textContent = "Next Question";
     document.getElementById("flagBtn").disabled = true;
 
-    renderQuestion();
 
-    renderNavigator();
+};
+
+
+
+playAudioBtn.onclick = () => {
+
+    if(audioPlayer.paused){
+
+        audioPlayer.play();
+
+        playAudioBtn.textContent = "⏸ Pause Audio";
+
+    }else{
+
+        audioPlayer.pause();
+
+        playAudioBtn.textContent = "▶ Play Audio";
+
+    }
 
 };

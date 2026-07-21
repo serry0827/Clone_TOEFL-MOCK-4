@@ -14,7 +14,7 @@
 <header>
 
 <div class="logo">
-TOEFL Reading Practice
+TOEFL Listening Practice
 </div>
 
 <div id="timer">
@@ -31,6 +31,21 @@ TOEFL Reading Practice
 
 </div>
 
+
+<div id="startScreen">
+
+    <h1>TOEFL Listening Practice</h1>
+
+    <p>
+        Click the button below when you are ready.
+    </p>
+
+    <button id="startBtn">Start Listening Section</button>
+
+</div>
+
+
+
 <!-- Main -->
 
 <div id="main">
@@ -39,9 +54,20 @@ TOEFL Reading Practice
 
 <section id="passagePanel">
 
-<h2 id="passageTitle"></h2>
+<h2 id="instructionTitle">Instructions</h2>
 
-<div id="passageText"></div>
+<p id="instruction"></p>
+
+<hr>
+
+<div id="audioStatus">🎧 Audio will play automatically.</div>
+<button id="playAudioBtn" style="display:none;">
+    ▶ Play Audio
+</button>
+
+<div id="audioProgressContainer">
+    <div id="audioProgress"></div>
+</div>
 
 </section>
 
