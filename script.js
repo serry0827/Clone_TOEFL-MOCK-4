@@ -120,10 +120,15 @@ function playAudio(){
 
     const file = getAudioFile(module, questionInModule);
 
-    if(file === lastAudioFile)
+    if(file !== lastAudioFile || reviewMode){
+
+        lastAudioFile = file;
+
+    }else{
+
         return;
 
-    lastAudioFile = file;
+    }
 
    audioPlayer.src = "Audiofiles_Mock4/" + file;
 
@@ -294,13 +299,25 @@ function renderQuestion(){
 
     updateProgress();
 
-    if(!questionStarted){
+    if(!reviewMode && !questionStarted){
 
         prepareQuestionTimer();
 
         playAudio();
 
         questionStarted = true;
+
+    }
+
+    if(reviewMode){
+
+        playAudio();
+
+        playAudioBtn.style.display = "inline-block";
+
+    }else{
+
+        playAudioBtn.style.display = "none";
 
     }
 
@@ -381,7 +398,9 @@ function renderNavigator(){
             audioPlayer.pause();
             audioPlayer.currentTime = 0;
 
-            currentQuestion=index;
+            currentQuestion = index;
+
+            questionStarted = false; // important
 
             renderQuestion();
 
@@ -431,7 +450,7 @@ document.getElementById("nextBtn").onclick = () => {
 document.getElementById("prevBtn").onclick=()=>{
 
     questionStarted = false;
-    
+
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
 
