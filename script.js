@@ -16,6 +16,8 @@ let reviewMode = false;
 
 let questionTimer;
 
+let questionStarted = false;
+
 // --------------------
 // HTML ELEMENTS
 // --------------------
@@ -290,7 +292,17 @@ function renderQuestion(){
 
     updateProgress();
 
-    prepareQuestionTimer();
+    updateProgress();
+
+    if(!questionStarted){
+
+        prepareQuestionTimer();
+
+        playAudio();
+
+        questionStarted = true;
+
+    }
 
     if(reviewMode){
 
@@ -302,7 +314,6 @@ function renderQuestion(){
 
     }
 
-    playAudio();
 
 }
 
@@ -390,6 +401,8 @@ function renderNavigator(){
 
 document.getElementById("nextBtn").onclick = () => {
 
+    questionStarted = false;
+
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
 
@@ -417,6 +430,8 @@ document.getElementById("nextBtn").onclick = () => {
 
 document.getElementById("prevBtn").onclick=()=>{
 
+    questionStarted = false;
+    
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
 
